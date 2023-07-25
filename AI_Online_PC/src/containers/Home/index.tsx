@@ -4,7 +4,7 @@
  * @Description: 
  */
 
-import HomePic from "../../assets/HomePageGraphic.png"
+import HomePic from "../../assets/home.png"
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
       <div className="bg-gradient-to-br mt-8 from-black to-slate-600 text-transparent bg-clip-text text-6xl font-semibold text-center leading-snug">
         <p>Sports change your body</p>{" "}
         <p>
-        But <span className="text-[#3290EE]">AI</span> Will change your life NOW
+        But <span className="text-[#3290EE]">AI</span> Will change your life Now
         </p>  
       </div>
 
@@ -32,14 +32,16 @@ const Home = () => {
       </div>
 
       {/* GRID, right is picture & left is introduce */}
-      <div className="md:flex -mt-8 items-center justify-center mx-auto w-full">
+      <div className="md:flex mt-10 items-center justify-center mx-auto w-full">
         {/* LEFT */}
-        <div className="flex flex-col">
+        
+        <div className="md:mr-80">
+          <img src={HomePic} alt=""  className="h-[700px]"/>
+        </div>
+        {/* RIGHT */}
+        <div className="flex flex-col md:ml-80">
           <p className="text-5xl">独立开发者: Bruce Hsu</p>
           <p className="text-xl text-gray-400">xxxxxxxxxx</p>
-        </div>
-        <div className="md:ml-80">
-          <img src={HomePic} alt=""  className="h-[450px]"/>
         </div>
       </div>
       {/* CAROUSEL, ads */}
