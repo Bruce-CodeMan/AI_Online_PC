@@ -3,10 +3,13 @@
  * @Author: Bruce Hsu
  * @Description: 
  */
+
+import HomePic from "../../assets/HomePageGraphic.png"
+
 const Home = () => {
   return (
     <div 
-      className='bg-gradient-to-br from-pink-300 via-white to-sky-300 h-[100vh] w-full flex flex-col space-x-4 items-center'>
+      className='bg-gradient-to-br from-pink-300 via-white to-sky-300 h-[100vh] w-full flex flex-col items-center'>
       {/* SLOGAN, what's your product? */}
       <div className="bg-gradient-to-br mt-8 from-black to-slate-600 text-transparent bg-clip-text text-6xl font-semibold text-center leading-snug">
         <p>Sports change your body</p>{" "}
@@ -28,8 +31,17 @@ const Home = () => {
         </button>
       </div>
 
-      {/* GRID, left is picture & right is introduce */}
-
+      {/* GRID, right is picture & left is introduce */}
+      <div className="md:flex -mt-8 items-center justify-center mx-auto w-full">
+        {/* LEFT */}
+        <div className="flex flex-col">
+          <p className="text-5xl">独立开发者: Bruce Hsu</p>
+          <p className="text-xl text-gray-400">xxxxxxxxxx</p>
+        </div>
+        <div className="md:ml-80">
+          <img src={HomePic} alt=""  className="h-[450px]"/>
+        </div>
+      </div>
       {/* CAROUSEL, ads */}
     </div>
   )
