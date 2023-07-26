@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base{
+  /* sidebar的背景 */
+  .sidebar-container{
+    @apply bg-glass h-[96%] w-[20rem] rounded-3xl ml-6 p-4 border transition-all duration-500 border-solid border-glass relative
+  }
+  /* sibebar的按钮 */
+  .sidebar-button{
+    @apply absolute top-[45%] flex justify-center items-center -left-5 w-10 h-10 bg-glass rounded-full cursor-pointer
+  }
+}

@@ -4,12 +4,13 @@
  * @Description: 
  */
 
-import HomePic from "../../assets/home.png"
+import HomePic from "@/assets/home.png"
 
 const Home = () => {
   return (
     <div 
-      className='bg-gradient-to-br from-pink-300 via-white to-sky-300 h-[100vh] w-full flex flex-col items-center'>
+      className='bg-gradient-to-br from-pink-300 via-white to-sky-300 h-[100vh] w-full flex flex-col items-center'
+    >
       {/* SLOGAN, what's your product? */}
       <div className="bg-gradient-to-br mt-8 from-black to-slate-600 text-transparent bg-clip-text text-6xl font-semibold text-center leading-snug">
         <p>Sports change your body</p>{" "}
@@ -32,11 +33,11 @@ const Home = () => {
       </div>
 
       {/* GRID, right is picture & left is introduce */}
-      <div className="md:flex mt-10 items-center justify-center mx-auto w-full">
+      <div className="md:flex -mt-40 items-center justify-center mx-auto w-full flex-1">
         {/* LEFT */}
         
-        <div className="md:mr-80">
-          <img src={HomePic} alt=""  className="h-[700px]"/>
+        <div className="md:mr-40 h-80">
+          <img src={HomePic} alt="" className="h-96"/>
         </div>
         {/* RIGHT */}
         <div className="flex flex-col md:ml-80">
