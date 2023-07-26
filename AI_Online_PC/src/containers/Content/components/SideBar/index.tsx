@@ -8,6 +8,7 @@ import { useState } from "react";
 
 // Custom Imports
 import UserProfile from "@/containers/Content/components/UserProfile";
+import SidebarData from "../SideBarData";
 
 const SideBar = () => {
 
@@ -16,6 +17,7 @@ const SideBar = () => {
   return (
     <div className={`${toggle ? "w-[5.8rem]": ""} sidebar-container`}>
       <UserProfile toggle={toggle}/>
+      <SidebarData toggle={toggle}/>
       <div 
         className={`sidebar-button`}
         onClick={() => setToggle(!toggle)}

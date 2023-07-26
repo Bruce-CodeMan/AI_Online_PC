@@ -11,4 +11,7 @@
   .sidebar-button{
     @apply absolute top-[45%] flex justify-center items-center -left-5 w-10 h-10 bg-glass rounded-full cursor-pointer
   }
+  .sidebar {
+    @apply flex items-center mt-2 p-4 rounded-lg cursor-pointer hover:bg-white transition-all duration-300
+  }
 }
