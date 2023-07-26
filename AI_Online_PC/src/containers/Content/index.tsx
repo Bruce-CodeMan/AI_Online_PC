@@ -13,6 +13,9 @@ const Content = () => {
       className="w-full h-screen bg-back object-cover flex items-center"
     >
       <SideBar />
+      <div className="flex-1 bg-glass w-full h-[96%] ml-6 mr-6 rounded-3xl">
+
+      </div>
     </div>
   )
 }
