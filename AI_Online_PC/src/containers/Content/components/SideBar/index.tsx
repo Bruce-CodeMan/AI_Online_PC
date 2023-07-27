@@ -11,17 +11,18 @@ import UserProfile from "@/containers/Content/components/UserProfile";
 import SidebarData from "../SideBarData";
 
 interface IProps {
+  selectedPage: string;
   setSelectedPage: (value: string) => void;
 }
 
-const SideBar = ({ setSelectedPage }: IProps) => {
+const SideBar = ({ selectedPage, setSelectedPage }: IProps) => {
 
   const [toggle, setToggle] = useState(false)
 
   return (
     <div className={`${toggle ? "w-[5.8rem]": ""} sidebar-container`}>
       <UserProfile toggle={toggle}/>
-      <SidebarData toggle={toggle} setSelectedPage={setSelectedPage}/>
+      <SidebarData toggle={toggle} setSelectedPage={setSelectedPage} selectedPage={selectedPage}/>
       <div 
         className={`sidebar-button`}
         onClick={() => setToggle(!toggle)}

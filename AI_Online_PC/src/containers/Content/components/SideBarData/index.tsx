@@ -8,10 +8,11 @@ import { datas } from "@/data";
 
 interface IProps {
     toggle: boolean;
+    selectedPage: string;
     setSelectedPage: (value: string) => void;
 }
 
-const SidebarData = ({ toggle, setSelectedPage }: IProps) => {
+const SidebarData = ({ toggle, selectedPage, setSelectedPage }: IProps) => {
   return (
     <div>
       {datas.map((data) => {
@@ -19,7 +20,10 @@ const SidebarData = ({ toggle, setSelectedPage }: IProps) => {
           <div
             className={`${
               toggle ? "last:w-[3.6rem]" : "last:w-[17rem]"
-            } sidebar last:absolute left-4 bottom-4`}
+            } sidebar last:absolute left-4 bottom-4
+            ${
+              selectedPage === data.id ? "bg-white": ""  
+            }`}
             key={data.id}
             onClick={() => setSelectedPage(data.id)}
           >

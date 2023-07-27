@@ -3,10 +3,11 @@
  * @Author: Bruce Hsu
  * @Description: 
  */
+import { useState } from "react";
 
 // Custom Imports
 import SideBar from "@/containers/Content/components/SideBar";
-import { useState } from "react";
+import ChatGPT from "@/containers/ChatGPT";
 
 const Content = () => {
 
@@ -16,10 +17,10 @@ const Content = () => {
     <div
       className="w-full h-screen bg-back object-cover flex items-center"
     >
-      <SideBar setSelectedPage={setSelectedPage}/>
+      <SideBar setSelectedPage={setSelectedPage} selectedPage={selectedPage}/>
       <div className="flex-1 bg-glass w-full h-[96%] ml-6 mr-6 rounded-3xl">
         {selectedPage === "1" && (
-          <div>Bruce</div>
+          <ChatGPT />
         )}
         {selectedPage === "2" && (
           <div>James</div>
