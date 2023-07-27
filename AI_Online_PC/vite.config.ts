@@ -1,3 +1,8 @@
+/*
+ * @Date: 2023-07-25 09:21:23
+ * @Author: Bruce Hsu
+ * @Description: 
+ */
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
