@@ -10,14 +10,18 @@ import { useState } from "react";
 import UserProfile from "@/containers/Content/components/UserProfile";
 import SidebarData from "../SideBarData";
 
-const SideBar = () => {
+interface IProps {
+  setSelectedPage: (value: string) => void;
+}
+
+const SideBar = ({ setSelectedPage }: IProps) => {
 
   const [toggle, setToggle] = useState(false)
 
   return (
     <div className={`${toggle ? "w-[5.8rem]": ""} sidebar-container`}>
       <UserProfile toggle={toggle}/>
-      <SidebarData toggle={toggle}/>
+      <SidebarData toggle={toggle} setSelectedPage={setSelectedPage}/>
       <div 
         className={`sidebar-button`}
         onClick={() => setToggle(!toggle)}

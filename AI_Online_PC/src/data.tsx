@@ -12,42 +12,42 @@ import { BsFolder, BsWallet2 } from "react-icons/bs";
 
 export const datas = [
   {
-    id: 1,
+    id: "1",
     icon: <RxDashboard />,
     text: "Dashboard",
   },
   {
-    id: 2,
+    id: "2",
     icon: <MdInsights />,
     text: "Sales Insights",
   },
   {
-    id: 3,
+    id: "3",
     icon: <RiCouponLine />,
     text: "Coupons",
   },
   {
-    id: 4,
+    id: "4",
     icon: <FiUser />,
     text: "Team Member",
   },
   {
-    id: 5,
+    id: "5",
     icon: <AiOutlineMessage />,
     text: "Messages",
   },
   {
-    id: 6,
+    id: "6",
     icon: <BsFolder />,
     text: "File Manager",
   },
   {
-    id: 7,
+    id: "7",
     icon: <BsWallet2 />,
     text: "Wallet",
   },
   {
-    id: 8,
+    id: "8",
     icon: <FiLogOut />,
     text: "Logout",
   },

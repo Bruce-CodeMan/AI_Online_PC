@@ -3,17 +3,17 @@
  * @Author: Bruce Hsu
  * @Description: 
  */
-import React from "react";
 
 import { datas } from "@/data";
 
 interface IProps {
-    toggle: boolean
+    toggle: boolean;
+    setSelectedPage: (value: string) => void;
 }
 
-const SidebarData = ({ toggle }: IProps) => {
+const SidebarData = ({ toggle, setSelectedPage }: IProps) => {
   return (
-    <div className="">
+    <div>
       {datas.map((data) => {
         return (
           <div
@@ -21,6 +21,7 @@ const SidebarData = ({ toggle }: IProps) => {
               toggle ? "last:w-[3.6rem]" : "last:w-[17rem]"
             } sidebar last:absolute left-4 bottom-4`}
             key={data.id}
+            onClick={() => setSelectedPage(data.id)}
           >
             <div className="mr-8 text-[1.7rem] text-brown">{data.icon}</div>
             <div
