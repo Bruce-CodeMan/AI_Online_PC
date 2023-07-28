@@ -3,15 +3,20 @@
  * @Author: Bruce Hsu
  * @Description: 
  */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Custom Imports
 import SideBar from "@/containers/Content/components/SideBar";
 import ChatGPT from "@/containers/ChatGPT";
+import connectWithSocketServer from "@/utils/socketConn";
 
 const Content = () => {
 
   const [selectedPage, setSelectedPage] = useState("1");
+
+  useEffect(() => {
+    connectWithSocketServer();
+  }, [])
 
   return (
     <div
