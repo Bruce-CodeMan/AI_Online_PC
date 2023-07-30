@@ -4,3 +4,13 @@
  * @Description: 
  */
 import { configureStore } from "@reduxjs/toolkit"
+
+//Custom Imports
+import dashboardReducer from "./dashboardSlice"
+
+export const store = configureStore({
+    reducer: {
+       dashboard: dashboardReducer, 
+    }
+})
+

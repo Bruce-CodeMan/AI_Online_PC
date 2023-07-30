@@ -4,27 +4,47 @@
  * @Description: 
  */
 import { BsSend } from "react-icons/bs";
+import { useSelector, useDispatch } from "react-redux";
+import { v4 as uuid } from "uuid"
 
 // Custom Imports
 import styles from "./index.module.less"
 import { useState } from "react";
+import { addMessage, setSelectedConversationId } from "@/utils/dashboardSlice";
+import { sendConversationMessage } from "@/utils/socketConn";
 
 const NewMessageInput = () => {
 
   const [content, setContent] = useState("")
 
+  const dispatch = useDispatch()
+
+  const selectedConversationId = useSelector((state:any) => state.dashboard.selectedConversationId)
+
   const processMessage = () => {
     const message = {
       aiMessage: false,
       content,
-      id: "1",
+      id: uuid(),
       animate: false,
     }
-    console.log(message)
+
+    const conversationId =
+      selectedConversationId === "new" ? uuid() : selectedConversationId;
+
+    console.log(conversationId)
+
     // append this message to our local store
+    dispatch(
+      addMessage({
+        conversationId,
+        message
+    }))
+
+    dispatch(setSelectedConversationId(conversationId))
 
     // send message to the server
-
+    sendConversationMessage(message, conversationId)
     // reset the value of the input
     setContent("")
   }

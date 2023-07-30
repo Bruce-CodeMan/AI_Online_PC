@@ -3,18 +3,35 @@
  * @Author: Bruce Hsu
  * @Description: 
  */
-
+import { useSelector } from "react-redux";
 // Custom Imports
-// import ChatGPTLogo from "./componenets/Logo";
+import ChatGPTLogo from "./componenets/Logo";
 import NewMessageInput from "./componenets/NewMessageInput";
 import Messages from "./componenets/Messages";
 
 const ContentChatGPT = () => {
+
+  const selectedConversationId = useSelector(
+    (state: any) => state.dashboard.selectedConversationId
+  )
+
   return (
-    <div className="bg-white w-full h-full rounded-r-lg flex flex-col">
-      <Messages />
-      <NewMessageInput />
-    </div>
+    <>
+    {
+      !selectedConversationId
+      ? (
+        <div  className="bg-white w-full h-full rounded-r-lg flex flex-col">
+          <ChatGPTLogo />
+        </div>
+      ): (
+        <div className="bg-white w-full h-full rounded-r-lg flex flex-col">
+          <Messages />
+          <NewMessageInput />
+        </div>
+      )
+    }
+    </>
+    
   )
 }
 
