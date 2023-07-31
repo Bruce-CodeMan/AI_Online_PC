@@ -10,6 +10,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './index.css'
 import Home from './containers/Home'
 import Content from './containers/Content';
+import Login from './containers/Login';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/content' element={<Content />} />
+      <Route path='/login' element={<Login />} />
     </Routes>
     
   </BrowserRouter>
