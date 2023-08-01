@@ -17,7 +17,7 @@ interface IProps {
 
 const SideBar = ({ selectedPage, setSelectedPage }: IProps) => {
 
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(true)
 
   return (
     <div className={`${toggle ? "w-[5.8rem]": ""} sidebar-container`}>

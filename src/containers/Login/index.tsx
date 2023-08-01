@@ -6,13 +6,16 @@
 const Login = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-300 to-blue-300 py-40">
-      <div className="container mx-auto">
+      <div className="container mx-auto mt-32">
         <div className="flex w-1/2 rounded-xl bg-white mx-auto shadow-lg">
           {/* LEFT */}
           <div className="w-1/3 bg-[url('@/assets/login.jpeg')] text-white bg-contain bg-no-repeat rounded-l-lg flex flex-col item-center justify-center">
-            <h1 className="text-3xl font-bold ml-[20%] mb-8">Welcome</h1>
+            <div>
+            <h1 className="text-3xl font-bold text-center mb-8">Welcome</h1>
+            </div>
+            
             <div className="break-words">
-              <p>xxxxxdfjkajskdfjkalsjfklsajghfjadshgajdskfbhsdabnvxzbncbvjahdsfjhauehyrtjasdjfhajsfdbdasbfhjsgahf</p>
+              <p className="text-center">No pain No gain</p>
             </div>
           </div>
           {/* RIGHT */}
