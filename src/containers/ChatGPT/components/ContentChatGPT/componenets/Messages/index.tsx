@@ -1,18 +1,32 @@
+/*
+ * @Date: 2023-07-31 13:02:49
+ * @Author: Bruce Hsu
+ * @Description: 
+ */
 import { useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
 
 import Message from "../Message";
+import styles from "./index.module.less"
 
 const Messages = () => {
 
   const { selectedConversationId, conversations } = useSelector((state:any) => state.dashboard)
 
+  const scrollRef = useRef<HTMLDivElement>(null);
   
   const conversation = conversations.find(
     (c: any) => c.id === selectedConversationId
   )
 
+  const scrollToButton = () => {
+    scrollRef.current?.scrollIntoView({behavior: "smooth"})
+  }
+
+  useEffect(scrollToButton, [conversation?.messages])
+
   return (
-    <div className="flex-1">
+    <div className={`${styles.chat_messages_container}`}>
       {
         conversation?.messages.map((m: any, index: number) => (
           
@@ -24,6 +38,7 @@ const Messages = () => {
           />
         ))
       }
+      <div ref={scrollRef}></div>
     </div>
   )
 }
