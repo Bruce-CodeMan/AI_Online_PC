@@ -237,7 +237,7 @@ const Login = () => {
 
               <div>
                 <label className="block text-sm font-semibold leading-6 text-white">
-                  邀请码
+                  邀请码(选填)
                 </label>
                 <div className="mt-2.5">
                   <input
@@ -248,11 +248,11 @@ const Login = () => {
               </div>
               <div>
                 
-                <div className="mt-9 mr-0">
+                <div className="mt-8 mr-0">
                   <button 
-                    className='rounded-md bg-indigo-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500'
-
-                  >登录体验</button>
+                    // className='rounded-md bg-indigo-500 px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500'
+                    className='bg-indigo-500 py-2 rounded-lg px-6 block text-sm font-semibold leading-6 text-white hover:bg-indigo-400'
+                  >前往登录</button>
                 </div>
               </div>
 
