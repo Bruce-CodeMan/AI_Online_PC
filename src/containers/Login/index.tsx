@@ -2,8 +2,16 @@
 import { BuildingOffice2Icon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react'
 import Captcha from "react-captcha-code"
+import { useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
+
+// Custom Imports
+import { LOGIN, SEND_CODE_MSG } from '@/graphql/auth';
+import { AUTH_TOKEN } from '@/utils/constant';
 
 const Login = () => {
+
+  const nav = useNavigate()
 
   const [phone, setPhone] = useState("")
   const [validPhone, setValidPhone] = useState(true)
@@ -15,6 +23,12 @@ const Login = () => {
   const [isSendSmsOnPhone, setIsSendSmsOnPhone] = useState(false)
   const [isSendSmsOnCaptcha, setIsSendSmsOnCaptcha] = useState(false)
   const [validateSmsCode, setValidateSmsCode] = useState(true)
+  const [isSendCode, setIsSendCode] = useState(false)
+  const [smsCode, setSmsCode] = useState("")
+  const [invitedCode, setInvitedCode] = useState("")
+
+  const [ run ] = useMutation(SEND_CODE_MSG)
+  const [ login ] = useMutation(LOGIN)
 
   // 验证手机号是否正确的函数
   const validatePhoneHandler = (e: any) => {
@@ -52,7 +66,7 @@ const Login = () => {
   }
 
   // 点击按钮即将开始倒计时
-  const countDownHandler = () => {
+  const countDownHandler = async () => {
     // 设置倒计时时间为10秒
     const countDownTime = 5
     const currentTime = new Date().getTime()
@@ -68,11 +82,37 @@ const Login = () => {
     if(isSendSmsOnCaptcha && isSendSmsOnPhone) {
       // 开始发送短信
       setValidateSmsCode(true)
-      console.log("开始发送短信验证码")
+      const res = await run({
+        variables: {
+          "tel": phone,
+          "invitedCode": invitedCode
+        }
+      })
+      if(res.data.sendCodeMsg.code === 200){
+        setIsSendCode(true)
+      }else{
+        console.log("短信验证码发送失败")
+      }
     }else{
       setValidateSmsCode(false)
     }
   }
+
+  // 进行登录操作
+  const loginHandler = async () => {
+    const res = await login({
+      variables: {
+        "tel": phone,
+        "code": smsCode
+      }
+    })
+    if(res.data.login.code === 200){
+      localStorage.setItem(AUTH_TOKEN, res.data.login.data)
+      nav("/content")
+      return
+    }
+  }
+  
 
   useEffect(() => {
     const storedEndTime = localStorage.getItem("countDownTime")
@@ -234,10 +274,13 @@ const Login = () => {
               <div>
                 <label className="block text-sm font-semibold leading-6 text-white">
                   短信验证码{!validateSmsCode && <span className='ml-4 text-red-500 font-bold'>检查手机号&验证码</span>}
+                  {isSendCode && <span className='ml-4 text-green-500 font-bold'>请查收手机验证码</span>}
                 </label>
                 <div className="mt-2.5">
                   <input
                     type="text"
+                    value={smsCode}
+                    onChange={(e) => setSmsCode(e.target.value)}
                     className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -260,6 +303,8 @@ const Login = () => {
                 <div className="mt-2.5">
                   <input
                     type="text"
+                    value={invitedCode}
+                    onChange={(e) => setInvitedCode(e.target.value)}
                     className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -270,6 +315,7 @@ const Login = () => {
                   <button 
                     // className='rounded-md bg-indigo-500 px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500'
                     className='bg-indigo-500 py-2 rounded-lg px-6 block text-sm font-semibold leading-6 text-white hover:bg-indigo-400'
+                    onClick={loginHandler}
                   >前往登录</button>
                 </div>
               </div>
