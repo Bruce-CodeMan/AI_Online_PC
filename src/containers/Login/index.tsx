@@ -1,16 +1,96 @@
 
 import { BuildingOffice2Icon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline'
-import { useState } from 'react'
-import axios from "axios"
+import { useEffect, useState } from 'react'
+import Captcha from "react-captcha-code"
 
 const Login = () => {
 
-
-  const [ captchaSrc, setCaptchaSrc ] = useState("http://localhost:3000/sms/captcha")
+  const [phone, setPhone] = useState("")
+  const [validPhone, setValidPhone] = useState(true)
+  const [captcha, setCaptcha] = useState("")
+  const [inputCaptcha, setInputCaptcha] = useState("")
+  const [validCaptcha, setValidCaptcha] = useState(true)
+  const [remainingTime, setRemainingTime] = useState(0)
+  const [isCounting, setIsCounting] = useState(false)
   
-  const refreshCaptchaHandler = () => {
-    setCaptchaSrc(`http://localhost:3000/sms/captcha?sign=${Math.random()}`)
+  // 验证手机号是否正确的函数
+  const validatePhoneHandler = (e: any) => {
+    const { value } = e.target
+    setPhone(value)
+
+    // 使用正则表达式检查手机号
+    const regex = /^1[3456789]\d{9}$/;
+    const isValid = regex.test(value)
+    setValidPhone(isValid)
   }
+
+  // 切换图片验证码
+  const changeCaptchaHandler = (text: string) => {
+    setCaptcha(text)
+  }
+
+  // 验证图片验证码是否正确的函数
+  const validateCaptchaHandler = (e: any) => {
+    const { value } = e.target
+    setInputCaptcha(value)
+
+    if(value === captcha){
+      setValidCaptcha(true)
+    }else{
+      setValidCaptcha(false)
+    }
+  }
+
+  // 点击按钮即将开始倒计时
+  const countDownHandler = () => {
+    // 设置倒计时时间为10秒
+    const countDownTime = 10
+    const currentTime = new Date().getTime()
+    const endTime = currentTime + countDownTime * 1000
+
+    // 将截止时间存储在localStorage中
+    localStorage.setItem('countDownTime', endTime.toString())
+
+    // 开始倒计时
+    setRemainingTime(countDownTime)
+    setIsCounting(true)
+  }
+
+  useEffect(() => {
+    const storedEndTime = localStorage.getItem("countDownTime")
+    const currentTime = new Date().getTime()
+
+    if(storedEndTime && currentTime < parseInt(storedEndTime, 10)) {
+      // 计算剩余时间
+      const remainingSeconds = Math.ceil((parseInt(storedEndTime, 10) - currentTime)/ 1000)
+
+      // 开始倒计时
+      setRemainingTime(remainingSeconds)
+      setIsCounting(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout | null = null
+    if(isCounting) {
+      // 每秒更新倒计时时间
+      intervalId = setInterval(() => {
+        setRemainingTime((prevTime: number) => {
+          if(prevTime === 1){
+            // 倒计时结束
+            setIsCounting(false)
+            localStorage.removeItem("countDownTime")
+            clearInterval(intervalId!)
+          }
+          return prevTime - 1
+        })
+      }, 1000)
+    }
+    return () => {
+      clearInterval(intervalId!)
+    }
+  }, [isCounting])
+
 
   return (
     <div className="relative isolate bg-gray-900 min-h-screen">
@@ -100,11 +180,13 @@ const Login = () => {
 
             <div>
                 <label className="block text-sm font-semibold leading-6 text-white">
-                  手机号
+                  手机号{!validPhone && <span className='ml-4 font-bold text-red-500'>请输入正确的手机号</span>}
                 </label>
                 <div className="mt-2.5">
                   <input
                     type="text"
+                    value={phone}
+                    onChange={validatePhoneHandler}
                     className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -114,23 +196,20 @@ const Login = () => {
 
               <div>
                 <label className="block text-sm font-semibold leading-6 text-white">
-                  图片验证码
+                  图片验证码{!validCaptcha && <span className='ml-4 text-red-500 font-bold'>验证码输入不正确</span>}
                 </label>
                 <div className="mt-2.5">
                   <input
                     type="text"
+                    value={inputCaptcha}
+                    onChange={validateCaptchaHandler}
                     className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
               <div>
                 <div className="mt-9 mr-0">
-                  <img 
-                    src={captchaSrc} 
-                    alt="" 
-                    className='cursor-pointer'
-                    onClick={refreshCaptchaHandler}
-                  />
+                  <Captcha charNum={4} onChange={changeCaptchaHandler}/>
                 </div>
               </div>
               
@@ -148,21 +227,35 @@ const Login = () => {
               <div>
                 
                 <div className="mt-9 mr-0">
-                  <button className='bg-white/5 py-2 rounded-lg px-6 block text-sm font-semibold leading-6 text-white'>发送短信</button>
+                  <button 
+                    className='bg-white/5 py-2 rounded-lg px-6 block text-sm font-semibold leading-6 text-white'
+                    onClick={countDownHandler}
+                    disabled={isCounting}
+                  >{isCounting ? `倒计时 ${remainingTime}` : '发送短信'}</button>
                 </div>
               </div>
-            </div>
 
-                  
-                  
+              <div>
+                <label className="block text-sm font-semibold leading-6 text-white">
+                  邀请码
+                </label>
+                <div className="mt-2.5">
+                  <input
+                    type="text"
+                    className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+              <div>
+                
+                <div className="mt-9 mr-0">
+                  <button 
+                    className='rounded-md bg-indigo-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500'
 
-            <div className="mt-8 flex justify-end">
-              <button
-                type="submit"
-                className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-              >
-                Send message
-              </button>
+                  >登录体验</button>
+                </div>
+              </div>
+
             </div>
           </div>
         </form>
