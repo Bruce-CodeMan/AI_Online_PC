@@ -3,10 +3,19 @@
  * @Author: Bruce Hsu
  * @Description: 
  */
+import { useNavigate } from "react-router-dom";
+
 
 import HomePic from "@/assets/home.png"
 
 const Home = () => {
+
+  const nav = useNavigate()
+
+  const jumpToContentHandler = () => {
+    nav("/content")
+  }
+
   return (
     <div 
       className='bg-gradient-to-br from-pink-300 via-white to-sky-300 h-[100vh] w-full flex flex-col items-center'
@@ -26,6 +35,7 @@ const Home = () => {
         >
           <div 
             className="bg-white rounded-full py-2 tracking-widest font-bold"
+            onClick={jumpToContentHandler}
           >
             即刻体验
           </div>
