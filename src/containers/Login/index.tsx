@@ -12,7 +12,10 @@ const Login = () => {
   const [validCaptcha, setValidCaptcha] = useState(true)
   const [remainingTime, setRemainingTime] = useState(0)
   const [isCounting, setIsCounting] = useState(false)
-  
+  const [isSendSmsOnPhone, setIsSendSmsOnPhone] = useState(false)
+  const [isSendSmsOnCaptcha, setIsSendSmsOnCaptcha] = useState(false)
+  const [validateSmsCode, setValidateSmsCode] = useState(true)
+
   // 验证手机号是否正确的函数
   const validatePhoneHandler = (e: any) => {
     const { value } = e.target
@@ -22,6 +25,11 @@ const Login = () => {
     const regex = /^1[3456789]\d{9}$/;
     const isValid = regex.test(value)
     setValidPhone(isValid)
+    if(isValid){
+      setIsSendSmsOnPhone(true)
+    }else{
+      setIsSendSmsOnPhone(false)
+    }
   }
 
   // 切换图片验证码
@@ -36,15 +44,17 @@ const Login = () => {
 
     if(value === captcha){
       setValidCaptcha(true)
+      setIsSendSmsOnCaptcha(true)
     }else{
       setValidCaptcha(false)
+      setIsSendSmsOnCaptcha(false)
     }
   }
 
   // 点击按钮即将开始倒计时
   const countDownHandler = () => {
     // 设置倒计时时间为10秒
-    const countDownTime = 10
+    const countDownTime = 5
     const currentTime = new Date().getTime()
     const endTime = currentTime + countDownTime * 1000
 
@@ -54,6 +64,14 @@ const Login = () => {
     // 开始倒计时
     setRemainingTime(countDownTime)
     setIsCounting(true)
+
+    if(isSendSmsOnCaptcha && isSendSmsOnPhone) {
+      // 开始发送短信
+      setValidateSmsCode(true)
+      console.log("开始发送短信验证码")
+    }else{
+      setValidateSmsCode(false)
+    }
   }
 
   useEffect(() => {
@@ -215,7 +233,7 @@ const Login = () => {
               
               <div>
                 <label className="block text-sm font-semibold leading-6 text-white">
-                  短信验证码
+                  短信验证码{!validateSmsCode && <span className='ml-4 text-red-500 font-bold'>检查手机号&验证码</span>}
                 </label>
                 <div className="mt-2.5">
                   <input
