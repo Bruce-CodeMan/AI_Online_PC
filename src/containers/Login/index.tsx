@@ -235,8 +235,9 @@ const Login = () => {
         <form className="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48">
           <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
             <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-
-            <div>
+                
+              {/* 手机号输入框 - start   */}
+              <div>
                 <label className="block text-sm font-semibold leading-6 text-white">
                   手机号{!validPhone && <span className='ml-4 font-bold text-red-500'>请输入正确的手机号</span>}
                 </label>
@@ -248,10 +249,31 @@ const Login = () => {
                     className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                   />
                 </div>
+                </div>
+                <div>
               </div>
-              <div>
-              </div>
+              {/* 手机号输入框 - end */}
 
+              {/* 邀请码输入框 - start  */}
+              <div>
+                <label className="block text-sm font-semibold leading-6 text-white">
+                  邀请码(选填)
+                </label>
+                <div className="mt-2.5">
+                  <input
+                    type="text"
+                    value={invitedCode}
+                    onChange={(e) => setInvitedCode(e.target.value)}
+                    className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                  />
+                </div>
+                </div>
+                <div>
+              </div>
+              {/* 邀请码输入框 - end */}
+
+
+              {/* 图片验证码输入框 - start      */}
               <div>
                 <label className="block text-sm font-semibold leading-6 text-white">
                   图片验证码{!validCaptcha && <span className='ml-4 text-red-500 font-bold'>验证码输入不正确</span>}
@@ -270,7 +292,9 @@ const Login = () => {
                   <Captcha charNum={4} onChange={changeCaptchaHandler}/>
                 </div>
               </div>
+              {/* 图片验证码输入框 - end */}
               
+              {/* 短信验证码输入框 - start */}
               <div>
                 <label className="block text-sm font-semibold leading-6 text-white">
                   短信验证码{!validateSmsCode && <span className='ml-4 text-red-500 font-bold'>检查手机号&验证码</span>}
@@ -295,28 +319,16 @@ const Login = () => {
                   >{isCounting ? `倒计时 ${remainingTime}` : '发送短信'}</button>
                 </div>
               </div>
+              {/* 短信验证码输入框 - end */}
 
               <div>
-                <label className="block text-sm font-semibold leading-6 text-white">
-                  邀请码(选填)
-                </label>
                 <div className="mt-2.5">
-                  <input
-                    type="text"
-                    value={invitedCode}
-                    onChange={(e) => setInvitedCode(e.target.value)}
-                    className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-              <div>
-                
-                <div className="mt-8 mr-0">
-                  <button 
-                    // className='rounded-md bg-indigo-500 px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500'
-                    className='bg-indigo-500 py-2 rounded-lg px-6 block text-sm font-semibold leading-6 text-white hover:bg-indigo-400'
+                  <div 
+                    className='w-full bg-indigo-500 py-2 rounded-lg px-6 text-center text-white font-semibold leading-6 hover:bg-indigo-400 cursor-pointer'
                     onClick={loginHandler}
-                  >前往登录</button>
+                  >
+                    前往登录
+                  </div>
                 </div>
               </div>
 

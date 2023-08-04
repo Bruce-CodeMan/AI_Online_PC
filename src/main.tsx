@@ -9,19 +9,17 @@ import { ApolloProvider } from '@apollo/client';
 
 // Custom Imports
 import './index.css'
-import Home from '@/containers/Home'
-import Content from '@/containers/Content';
-import Login from '@/containers/Login';
 import { client } from '@/utils/apoll';
+import { ROUTE_CONFIG } from '@/routes';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ApolloProvider client={client}>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/content' element={<Content />} />
-        <Route path='/login' element={<Login />} />
+        {ROUTE_CONFIG.map((item) => (
+          <Route path={item.path} key={item.key} element={<item.element />}/>
+        ))}
       </Routes>
     </BrowserRouter>
   </ApolloProvider>
