@@ -11,16 +11,21 @@ import { ApolloProvider } from '@apollo/client';
 import './index.css'
 import { client } from '@/utils/apoll';
 import { ROUTE_CONFIG } from '@/routes';
+import PageNotFound from '@/containers/PageNotFound';
+import UserInfo from './components/UserInfo';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <Routes>
-        {ROUTE_CONFIG.map((item) => (
-          <Route path={item.path} key={item.key} element={<item.element />}/>
-        ))}
-      </Routes>
+      <UserInfo>
+        <Routes>
+          {ROUTE_CONFIG.map((item) => (
+            <Route path={item.path} key={item.key} element={<item.element />}/>
+          ))}
+          <Route path='*' element={<PageNotFound />}/>
+        </Routes>
+      </UserInfo>
     </BrowserRouter>
   </ApolloProvider>
 )

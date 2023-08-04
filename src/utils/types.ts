@@ -3,6 +3,15 @@
  * @Author: Bruce Hsu
  * @Description: 
  */
+
 export interface IPropChild {
     children: React.ReactNode;
+}
+
+export interface IUser {
+    id: string;
+    name: string;
+    avatar: string;
+    gpt3Value: number;
+    gpt4Value: number;
 }
