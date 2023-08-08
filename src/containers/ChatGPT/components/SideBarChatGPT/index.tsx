@@ -3,12 +3,28 @@
  * @Author: Bruce Hsu
  * @Description: 
  */
+import { GET_MENU } from "@/graphql/user";
+import { useQuery } from "@apollo/client";
 
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
+
+interface IProp {
+  curKey: string;
+  setCurKey: (value: string) => void;
+}
 
 
-const SideBarChatGPT = () => {
+const SideBarChatGPT = ({ curKey, setCurKey }: IProp) => {
+  
+  const [menu, setMenu] = useState([]);
 
+  // 获取菜单栏的信息
+  useQuery(GET_MENU, {
+    onCompleted: (data) => {
+      setMenu(data.getAllMenus.data.menu)
+    }
+  })
 
   return (
     <div className="w-[15%] bg-[#202123] rounded-l-lg h-full flex flex-col">
@@ -21,19 +37,22 @@ const SideBarChatGPT = () => {
       </div>
       {/* ListItem */}
       <div className="w-[90%] flex flex-col mx-auto mt-2 cursor-pointer pr-2 truncate ...">
-        {/* No.1 */}
-        
-        <div
-          className="flex items-center h-9 gap-5 text-white mt-2 cursor-pointer w-full rounded-lg hover:bg-glass hover:opacity-75"
-        >
-          
-          <div className="ml-2">
-            <ChatBubbleLeftIcon  className="h-5 w-5"/>
-          </div>
-          <span className="truncate ...">Demo</span>
-        </div>
-          
-        
+        {/* 遍历整个菜单栏 */}
+        {
+          menu.slice(0).reverse().map((item: any) => (
+            <div
+              className={`flex ${curKey === item.key ? 'bg-glass' : ''} items-center h-9 gap-5 text-white mt-2 cursor-pointer w-full rounded-lg hover:bg-glass hover:opacity-751`}
+              key={item.key}
+              onClick={() => setCurKey(item.key)}
+            >
+              
+              <div className="ml-2">
+                <ChatBubbleLeftIcon  className="h-5 w-5"/>
+              </div>
+              <span className="truncate ...">{ item.title }</span>
+            </div>
+          ))
+        }
         
         {/* list-item end */}
         

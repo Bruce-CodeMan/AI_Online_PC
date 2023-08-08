@@ -3,19 +3,23 @@
  * @Author: Bruce Hsu
  * @Description: 
  */
+import { useState } from "react";
 
 // Custom Imports
 import SideBarChatGPT from "@/containers/ChatGPT/components/SideBarChatGPT";
 import ContentChatGPT from "@/containers/ChatGPT/components/ContentChatGPT";
 
+
 const ChatGPT = () => {
+
+  const [curKey, setCurKey] = useState("");
 
   return (
       <div className="flex w-full h-full">
       {/* SIDEBAR */}
-      <SideBarChatGPT />
+      <SideBarChatGPT curKey={curKey} setCurKey={setCurKey}/>
       {/* CHAT CONTENT */}
-      <ContentChatGPT />
+      <ContentChatGPT curKey={curKey}/>
     </div>
     
   )

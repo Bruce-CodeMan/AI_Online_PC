@@ -4,22 +4,33 @@
  * @Description: 
  */
 // Custom Imports
-// import ChatGPTLogo from "./componenets/Logo";
-import NewMessageInput from "../NewMessageInput";
-import Messages from "../Messages";
+import ChatGPTLogo from "@/containers/ChatGPT/components/Logo";
+import NewMessageInput from "@/containers/ChatGPT/components/NewMessageInput";
+import Messages from "@/containers/ChatGPT/components/Messages";
 
-const ContentChatGPT = () => {
+interface IProp {
+  curKey: string;
+}
 
+const ContentChatGPT = ({ curKey }: IProp) => {
+
+  
 
   return (
     <>
-        {/* <div  className="bg-white w-full h-full rounded-r-lg flex flex-col">
-          <ChatGPTLogo />
-        </div> */}
-        <div className="bg-white w-full h-full rounded-r-lg flex flex-col">
-          <Messages />
-          <NewMessageInput />
-        </div>
+        {
+          curKey 
+          ? (
+            <div className="bg-white w-full h-full rounded-r-lg flex flex-col">
+              <Messages curKey={ curKey }/>
+              <NewMessageInput />
+            </div>
+          ) : (
+            <div  className="bg-white w-full h-full rounded-r-lg flex flex-col">
+              <ChatGPTLogo />
+            </div>
+          )
+        }
       
     </>
     

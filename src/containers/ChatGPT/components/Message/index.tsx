@@ -11,7 +11,7 @@ import styles from "./index.module.less"
 
 interface IPros {
   content: string;
-  aiMessage: boolean;
+  aiMessage: string;
 }
 
 
@@ -19,10 +19,10 @@ const Message = ({ content, aiMessage }: IPros) => {
  return (
   <div
     className={`${styles.message_container}`}
-    style={{ background: aiMessage? 'rgb(247,247,248)': 'white' }}
+    style={{ background: aiMessage === "AI"? 'rgb(247,247,248)': 'white' }}
   >  
     <div className={`${styles.message_avatar_container}`}>
-      {aiMessage ? <FcMindMap /> : <GrUser />}
+      {aiMessage === "AI" ? <FcMindMap /> : <GrUser />}
     </div>
     <p className={`${styles.message_text}`}>
       { content }
