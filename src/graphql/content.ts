@@ -40,3 +40,14 @@ mutation commitContentInfo($params: ContentInput!){
   }
 }
 `
+
+// 添加聊天对话框
+export const ADD_NEW_DIALOG = gql`
+mutation addNewDialog{
+  addNewDialog{
+    code
+    data
+    message
+  }
+}
+`

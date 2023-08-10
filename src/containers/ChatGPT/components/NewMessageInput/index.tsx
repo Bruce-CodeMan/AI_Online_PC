@@ -13,6 +13,7 @@ import styles from "./index.module.less"
 import { useMutation, useQuery } from "@apollo/client";
 import { COMMIT_CONTENT_INFO, GET_CONTENT_INFO } from "@/graphql/content";
 import Message from "../Message";
+import { CHATGPT_URL } from "@/utils/constant";
 
 interface IProp {
   curKey: string;
@@ -22,7 +23,6 @@ const NewMessageInput = ({ curKey }: IProp) => {
 
   const [content, setContent] = useState("")
   const [detailContent, setDetailContent] = useState<{ id: string; sender: string; message: string }[]>([]);
-  const [receivedMsg, setReceivedMsg] = useState("")
   const [isSendMsg, setIsSendMsg] = useState(false)
 
   const [ sendMessage ] = useMutation(COMMIT_CONTENT_INFO)
@@ -49,6 +49,10 @@ const NewMessageInput = ({ curKey }: IProp) => {
   useEffect(scrollToButton, [detailContent])
 
   const processMessage = async () => {
+
+    console.log("curKey: ", curKey)
+    console.log("content: ", content)
+
     await sendMessage({
       variables: {
         "params": {
@@ -65,7 +69,7 @@ const NewMessageInput = ({ curKey }: IProp) => {
     setIsSendMsg(true)
     
 
-    fetch('http://127.0.0.1:3000/stream', {
+    fetch(CHATGPT_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
