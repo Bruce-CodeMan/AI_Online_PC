@@ -22,6 +22,8 @@ const NewMessageInput = ({ curKey }: IProp) => {
 
   const [content, setContent] = useState("")
   const [detailContent, setDetailContent] = useState<{ id: string; sender: string; message: string }[]>([]);
+  const [receivedMsg, setReceivedMsg] = useState("")
+  const [isSendMsg, setIsSendMsg] = useState(false)
 
   const [ sendMessage ] = useMutation(COMMIT_CONTENT_INFO)
 
@@ -44,17 +46,10 @@ const NewMessageInput = ({ curKey }: IProp) => {
     scrollRef.current?.scrollIntoView({behavior: "smooth"})
   }
 
-  // let detailContent = []
-  // if(data?.getContentInfo.data){
-  //   detailContent = data.getContentInfo.data.detailContent
-  // }
-
-  // const dispatch = useDispatch()
-
-  // const selectedConversationId = useSelector((state:any) => state.dashboard.selectedConversationId)
+  useEffect(scrollToButton, [detailContent])
 
   const processMessage = async () => {
-    const res = await sendMessage({
+    await sendMessage({
       variables: {
         "params": {
           "id": curKey,
@@ -66,19 +61,61 @@ const NewMessageInput = ({ curKey }: IProp) => {
         }
       }
     })
+    refetch()
+    setIsSendMsg(true)
     
-    const newContent = {
-      id: uuid(),
-      sender: "AI",
-      message: "Hello"
-    }
-    setDetailContent(prevDetailContent => [...prevDetailContent, newContent])
-    await refetch()
-  }
 
-  useEffect(() => {
-    console.log(detailContent)
-  }, [detailContent])
+    fetch('http://127.0.0.1:3000/stream', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: content
+      })
+    }).then(response => {
+      setDetailContent(prevDetailContent => [...prevDetailContent, {id: uuid(), sender: 'AI', message: ""}])
+      const reader = response.body?.getReader()
+      const decoder = new TextDecoder()
+
+      let fullMessage = ""
+
+      reader?.read().then(async function process({ done, value }): Promise<any> {
+        if(done) {
+          setIsSendMsg(false)
+          try{
+            await sendMessage({
+              variables: {
+                "params": {
+                  "id": curKey,
+                  "detailContent": {
+                    "id": uuid(),
+                    "sender": "AI",
+                    "message": fullMessage
+                  }
+                }
+              }
+            })
+            await refetch()
+          } catch{
+            console.log("ERROR")
+          }
+          return Promise.resolve()
+        }
+        const message = decoder.decode(value)
+        fullMessage += message
+        setDetailContent(prevDetailContent => {
+          const lastElement = prevDetailContent[prevDetailContent.length - 1]
+          if(lastElement){
+            lastElement.message += message
+          }
+          return [...prevDetailContent]
+        })
+
+        return reader.read().then(process)
+      })
+    })
+  }
 
   const sendMessageHandler = () => {
     if(content.length > 0) {
@@ -120,6 +157,7 @@ const NewMessageInput = ({ curKey }: IProp) => {
           onChange={(e) => setContent(e.target.value)}
           className={`${styles.new_message_input}`}
           onKeyDown={keyProcessedHandler}
+          disabled={isSendMsg}
         />
         <div 
           className="relative right-8 cursor-pointer"

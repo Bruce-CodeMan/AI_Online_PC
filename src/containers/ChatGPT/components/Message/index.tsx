@@ -18,7 +18,7 @@ interface IPros {
 const Message = ({ content, aiMessage }: IPros) => {
  return (
   <div
-    className={`${styles.message_container}`}
+    className={`${styles.message_container} rounded-r-lg`}
     style={{ background: aiMessage === "AI"? 'rgb(247,247,248)': 'white' }}
   >  
     <div className={`${styles.message_avatar_container}`}>
