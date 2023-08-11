@@ -4,8 +4,9 @@
  * @Description: 
  */
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
-
+// Custom Imports
 import HomePic from "@/assets/home.png"
 
 const Home = () => {
@@ -22,7 +23,13 @@ const Home = () => {
     >
       {/* SLOGAN, what's your product? */}
       <div className="bg-gradient-to-br mt-8 from-black to-slate-600 text-transparent bg-clip-text text-6xl font-semibold text-center leading-snug">
-        <p>Sports change your body</p>{" "}
+        <motion.div
+          initial={{ x: 300 }}
+          animate={{ x: 0 }}
+          transition={{ duration: 1 }}
+        >
+          Sports change your body
+        </motion.div>{" "}
         <p>
         But <span className="text-[#3290EE]">AI</span> Will change your life Now
         </p>  

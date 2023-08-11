@@ -12,6 +12,7 @@ import { motion } from "framer-motion"
 
 // Custom Imports
 import LoginImg from "@/assets/images/login.svg"
+import LoginDog from "@/assets/images/dog_login.svg"
 import { LOGIN, SEND_CODE_MSG } from '@/graphql/auth';
 import { AUTH_TOKEN } from '@/utils/constant';
 
@@ -170,9 +171,9 @@ const Login = () => {
             <div className="flex-col hidden min-h-screen xl:flex col-span-1">
               <div className="my-auto">
                 <motion.img 
-                  initial={{ x: -200 }}
-                  animate={{ x: 0 }}
-                  transition={{ duration: 0.5 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 2 }}
                   src={LoginImg}
                   className="w-1/2 -mt-16 ml-24"
                 />
@@ -189,9 +190,20 @@ const Login = () => {
             {/* BEGIN: Login Form */}
             <div className="flex h-screen py-5 my-10 xl:h-auto xl:py-0 xl:my-0 col-span-1">
               <div className="w-full px-5 py-8 mx-auto my-auto bg-white rounded-md shadow-md xl:ml-20 xl:bg-transparent sm:px-8 xl:p-0 xl:shadow-none sm:w-3/4 lg:w-2/4 xl:w-auto">
-                
-                <div className="mt-8">
-                  <div className="mt-6 flex-col">
+                <motion.img 
+                  src={LoginDog} 
+                  className="w-64 -mt-24" 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 2 }}
+                />
+                <div className="mt-2">
+                  <motion.div 
+                    className="mt-6 flex-col"
+                    initial={{ x: 300 }}
+                    animate={{ x: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
                     <h3>手机号: {!validPhone && <span className='ml-4 font-bold text-red-500'>请输入正确的手机号</span>}</h3>
                     <input 
                       type="text" 
@@ -200,9 +212,14 @@ const Login = () => {
                       className="mt-2 transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 block px-4 py-3 intro-x min-w-full xl:min-w-[350px]"
                       placeholder="请输入手机号"
                     />
-                  </div>
+                  </motion.div>
                   
-                  <div className="flex-col mt-6">
+                  <motion.div 
+                    className="flex-col mt-6"
+                    initial={{ x: 300 }}
+                    animate={{ x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                  >
                     <h3>邀请码:</h3>
                     <input 
                       type="text" 
@@ -211,9 +228,14 @@ const Login = () => {
                       className="mt-2 transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 block px-4 py-3 intro-x min-w-full xl:min-w-[350px]"
                       placeholder="请输入邀请码"
                     />
-                  </div>
+                  </motion.div>
                   
-                  <div className="flex-col mt-6">
+                  <motion.div 
+                    className="flex-col mt-6"
+                    initial={{ x: 300 }}
+                    animate={{ x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
                     <h3>图片验证码: {!validCaptcha && <span className='ml-4 text-red-500 font-bold'>验证码输入不正确</span>}</h3>
                     <div className="mt-2 flex">
                       <input 
@@ -229,10 +251,14 @@ const Login = () => {
                         onChange={changeCaptchaHandler}
                       />
                     </div>
-                    
-                  </div>
+                  </motion.div>
                  
-                  <div className="flex-col mt-6">
+                  <motion.div 
+                    className="flex-col mt-6"
+                    initial={{ x: 300 }}
+                    animate={{ x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}  
+                  >
                     <h3>
                       短信验证码:
                       {!validateSmsCode && <span className='ml-4 text-red-500 font-bold'>检查手机号&验证码</span>}
@@ -252,18 +278,22 @@ const Login = () => {
                         disabled={isCounting}
                       >{isCounting ? `倒计时 ${remainingTime}` : '发送短信'}</button>
                     </div>
-                  </div>
+                  </motion.div>
                   
 
-                  <div className="mt-8">
+                  <motion.div 
+                    className="mt-8"
+                    initial={{ x: 300 }}
+                    animate={{ x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                  >
                     <div 
-                      
                       className='w-full bg-indigo-500 py-2 rounded-lg px-6 text-center text-white font-semibold leading-6 hover:bg-indigo-400 cursor-pointer'
                       onClick={loginHandler}
                     >
                       登录
                     </div>
-                </div>
+                </motion.div>
 
                 </div>
               </div>
