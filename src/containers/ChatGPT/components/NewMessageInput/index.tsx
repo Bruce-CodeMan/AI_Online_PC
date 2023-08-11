@@ -138,10 +138,10 @@ const NewMessageInput = ({ curKey }: IProp) => {
   return (
     <>
       {/* 模型的选择 -start */}
-      <div className="relative top-0 h-14 w-full rounded-tr-lg border-b-2 flex items-center justify-center">
+      {/* <div className="relative top-0 h-14 w-full rounded-tr-lg border-b-2 flex items-center justify-center">
         <p className="text-[rgb(217,217,227)] font-bold text-xl">ChatGPT</p>  
 
-      </div>
+      </div> */}
       {/* 模型的选择 - end */}
 
       {/* 消息的展示列表 - start */}
