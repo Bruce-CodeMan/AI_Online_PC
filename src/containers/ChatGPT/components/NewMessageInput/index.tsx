@@ -137,6 +137,12 @@ const NewMessageInput = ({ curKey }: IProp) => {
 
   return (
     <>
+      {/* 模型的选择 -start */}
+      {/* <div className="relative top-0 h-[70px] w-full rounded-tr-lg border-b-2">
+
+
+      </div> */}
+      {/* 模型的选择 - end */}
 
       {/* 消息的展示列表 - start */}
       <div className={`${styles.chat_messages_container}`}>

@@ -6,7 +6,7 @@
 const ChatGPTLogo = () => {
   return (
     <div className="flex h-[100vh] items-center justify-center w-full">
-      <p className="text-[rgb(217,217,227)] font-bold text-5xl">SportGPT</p>
+      <p className="text-[rgb(217,217,227)] font-bold text-5xl">ChatGPT</p>
     </div>
   )
 }

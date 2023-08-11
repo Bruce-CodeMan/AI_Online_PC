@@ -31,8 +31,8 @@ const SideBarChatGPT = ({ curKey, setCurKey }: IProp) => {
   // 添加一个新的对话框
   const addNewDialogHandler = async () => {
     const { data } = await addNewDialog()
-    setCurKey(data)
-    refetch()
+    await refetch()
+    setCurKey(data.addNewDialog.data)
   }
 
   return (
