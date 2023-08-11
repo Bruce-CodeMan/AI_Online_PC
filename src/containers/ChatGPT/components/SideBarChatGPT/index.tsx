@@ -24,7 +24,7 @@ const SideBarChatGPT = ({ curKey, setCurKey }: IProp) => {
   // 获取菜单栏的信息
   const {refetch} = useQuery(GET_MENU, {
     onCompleted: (data) => {
-      setMenu(data.getAllMenus.data.menu)
+      setMenu(data.getAllMenus.data.menu || [])
     }
   })
 
@@ -48,7 +48,7 @@ const SideBarChatGPT = ({ curKey, setCurKey }: IProp) => {
       {/* ListItem */}
       <div className="w-[90%] flex flex-col mx-auto mt-2 cursor-pointer pr-2 truncate ...">
         {/* 遍历整个菜单栏 */}
-        {
+        { 
           menu.slice(0).reverse().map((item: any) => (
             <div
               className={`flex ${curKey === item.key ? 'bg-glass' : ''} items-center h-9 gap-5 text-white mt-2 cursor-pointer w-full rounded-lg hover:bg-glass hover:opacity-751`}

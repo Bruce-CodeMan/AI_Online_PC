@@ -40,6 +40,9 @@ dependencies:
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
+  postcss-nested:
+    specifier: ^6.0.1
+    version: 6.0.1(postcss@8.4.27)
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -70,6 +73,9 @@ dependencies:
   socket.io-client:
     specifier: ^4.7.1
     version: 4.7.1
+  tailwind-merge:
+    specifier: ^1.14.0
+    version: 1.14.0
   uuid:
     specifier: ^9.0.0
     version: 9.0.0
@@ -3485,6 +3491,10 @@ packages:
   /symbol-observable@4.0.0:
     resolution: {integrity: sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ==}
     engines: {node: '>=0.10'}
+    dev: false
+
+  /tailwind-merge@1.14.0:
+    resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
     dev: false
 
   /tailwindcss@3.3.3:

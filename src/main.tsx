@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ApolloProvider } from '@apollo/client';
 
 // Custom Imports
-import './index.css'
+import "./index.css"
 import { client } from '@/utils/apoll';
 import { ROUTE_CONFIG } from '@/routes';
 import PageNotFound from '@/containers/PageNotFound';
