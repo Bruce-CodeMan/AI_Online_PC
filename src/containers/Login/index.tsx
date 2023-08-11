@@ -1,10 +1,16 @@
-
-import { BuildingOffice2Icon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline'
-import { useEffect, useState } from 'react'
+/*
+ * @Date: 2023-08-11 16:28:40
+ * @Author: Bruce Hsu
+ * @Description: 
+ */
+import clsx from "clsx"
 import Captcha from "react-captcha-code"
+import { useState, useEffect } from "react"
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 
+// Custom Imports
+import LoginImg from "@/assets/images/login.svg"
 // Custom Imports
 import { LOGIN, SEND_CODE_MSG } from '@/graphql/auth';
 import { AUTH_TOKEN } from '@/utils/constant';
@@ -30,6 +36,11 @@ const Login = () => {
   const [ run ] = useMutation(SEND_CODE_MSG)
   const [ login ] = useMutation(LOGIN)
 
+  // 切换图片验证码
+  const changeCaptchaHandler = (text: string) => {
+    setCaptcha(text)
+  }
+
   // 验证手机号是否正确的函数
   const validatePhoneHandler = (e: any) => {
     const { value } = e.target
@@ -44,11 +55,6 @@ const Login = () => {
     }else{
       setIsSendSmsOnPhone(false)
     }
-  }
-
-  // 切换图片验证码
-  const changeCaptchaHandler = (text: string) => {
-    setCaptcha(text)
   }
 
   // 验证图片验证码是否正确的函数
@@ -149,194 +155,121 @@ const Login = () => {
     }
   }, [isCounting])
 
-
   return (
-    <div className="relative isolate bg-gray-900 min-h-screen">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
-        <div className="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48">
-          <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
-            <div className="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden ring-1 ring-white/5 lg:w-1/2">
-              <svg
-                className="absolute inset-0 h-full w-full stroke-gray-700 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
-                aria-hidden="true"
-              >
-                <defs>
-                  <pattern
-                    id="54f88622-e7f8-4f1d-aaf9-c2f5e46dd1f2"
-                    width={200}
-                    height={200}
-                    x="100%"
-                    y={-1}
-                    patternUnits="userSpaceOnUse"
-                  >
-                    <path d="M130 200V.5M.5 .5H200" fill="none" />
-                  </pattern>
-                </defs>
-                <svg x="100%" y={-1} className="overflow-visible fill-gray-800/20">
-                  <path d="M-470.5 0h201v201h-201Z" strokeWidth={0} />
-                </svg>
-                <rect width="100%" height="100%" strokeWidth={0} fill="url(#54f88622-e7f8-4f1d-aaf9-c2f5e46dd1f2)" />
-              </svg>
-              <div
-                className="absolute -left-56 top-[calc(100%-13rem)] transform-gpu blur-3xl lg:left-[max(-14rem,calc(100%-59rem))] lg:top-[calc(50%-7rem)]"
-                aria-hidden="true"
-              >
-                <div
-                  className="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-br from-[#80caff] to-[#4f46e5] opacity-20"
-                  style={{
-                    clipPath:
-                      'polygon(74.1% 56.1%, 100% 38.6%, 97.5% 73.3%, 85.5% 100%, 80.7% 98.2%, 72.5% 67.7%, 60.2% 37.8%, 52.4% 32.2%, 47.5% 41.9%, 45.2% 65.8%, 27.5% 23.5%, 0.1% 35.4%, 17.9% 0.1%, 27.6% 23.5%, 76.1% 2.6%, 74.1% 56.1%)',
-                  }}
+    <>
+      <div
+        className={clsx([
+          "sm:-mx-8 p-3 relative h-screen w-full overflow-hidden",
+          "before:hidden before:xl:block before:content-[''] before:w-[57%] before:-mt-[28%] before:-mb-[16%] before:-ml-[13%] before:absolute before:inset-y-0 before:left-0 before:transform before:rotate-[-4.5deg] before:bg-primary/20 before:rounded-[100%]",
+          "after:hidden after:xl:block after:content-[''] after:w-[57%] after:-mt-[20%] after:-mb-[13%] after:-ml-[13%] after:absolute after:inset-y-0 after:left-0 after:transform after:rotate-[-4.5deg] after:bg-primary after:rounded-[100%]",
+        ])}
+      >
+        <div className="relative z-10 sm:px-10">
+          <div className="block grid-cols-2 gap-4 xl:grid">
+            {/* BEGIN: Login Info */}
+            <div className="flex-col hidden min-h-screen xl:flex col-span-1">
+              <div className="my-auto">
+                <img 
+                  src={LoginImg}
+                  className="w-1/2 -mt-16 ml-24"
                 />
+                <div className="mt-10 text-4xl font-medium leading-tight text-white -intro-x">
+                  A few more clicks to <br />
+                  sign in to your account.
+                </div>
+                <div className="mt-5 text-lg text-white -intro-x text-opacity-70 dark:text-slate-400">
+                  Manage all your e-commerce accounts in one place
+                </div>
               </div>
             </div>
-            <h2 className="text-3xl font-bold tracking-tight text-white">Sports GPT</h2>
-            <p className="mt-6 text-lg leading-8 text-gray-300">
-              Proin volutpat consequat porttitor cras nullam gravida at. Orci molestie a eu arcu. Sed ut tincidunt
-              integer elementum id sem. Arcu sed malesuada et magna.
-            </p>
-            <dl className="mt-10 space-y-4 text-base leading-7 text-gray-300">
-              <div className="flex gap-x-4">
-                <dt className="flex-none">
-                  <span className="sr-only">Address</span>
-                  <BuildingOffice2Icon className="h-7 w-6 text-gray-400" aria-hidden="true" />
-                </dt>
-                <dd>
-                  545 Mavis Island
-                  <br />
-                  Chicago, IL 99191
-                </dd>
+            {/* END: Login Info */}
+            {/* BEGIN: Login Form */}
+            <div className="flex h-screen py-5 my-10 xl:h-auto xl:py-0 xl:my-0 col-span-1">
+              <div className="w-full px-5 py-8 mx-auto my-auto bg-white rounded-md shadow-md xl:ml-20 xl:bg-transparent sm:px-8 xl:p-0 xl:shadow-none sm:w-3/4 lg:w-2/4 xl:w-auto">
+                
+                <div className="mt-8">
+                  <div className="mt-6 flex-col">
+                    <h3>手机号: {!validPhone && <span className='ml-4 font-bold text-red-500'>请输入正确的手机号</span>}</h3>
+                    <input 
+                      type="text" 
+                      value={phone}
+                      onChange={validatePhoneHandler}
+                      className="mt-2 transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 block px-4 py-3 intro-x min-w-full xl:min-w-[350px]"
+                      placeholder="请输入手机号"
+                    />
+                  </div>
+                  
+                  <div className="flex-col mt-6">
+                    <h3>邀请码:</h3>
+                    <input 
+                      type="text" 
+                      value={invitedCode}
+                      onChange={(e) => setInvitedCode(e.target.value)}
+                      className="mt-2 transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 block px-4 py-3 intro-x min-w-full xl:min-w-[350px]"
+                      placeholder="请输入邀请码"
+                    />
+                  </div>
+                  
+                  <div className="flex-col mt-6">
+                    <h3>图片验证码: {!validCaptcha && <span className='ml-4 text-red-500 font-bold'>验证码输入不正确</span>}</h3>
+                    <div className="mt-2 flex">
+                      <input 
+                        type="text" 
+                        value={inputCaptcha}
+                        onChange={validateCaptchaHandler}
+                        className="transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-l-md placeholder:text-slate-400/90 block px-4 py-3 intro-x min-w-full xl:min-w-[350px]"
+                        placeholder="请输入图片验证码"
+                      />
+                      <Captcha 
+                        charNum={4} 
+                        className="rounded-r-md w-2/3"
+                        onChange={changeCaptchaHandler}
+                      />
+                    </div>
+                    
+                  </div>
+                 
+                  <div className="flex-col mt-6">
+                    <h3>
+                      短信验证码:
+                      {!validateSmsCode && <span className='ml-4 text-red-500 font-bold'>检查手机号&验证码</span>}
+                      {isSendCode && <span className='ml-4 text-green-500 font-bold'>请查收手机验证码</span>}
+                    </h3>
+                    <div className="mt-2 flex">
+                      <input 
+                        type="text" 
+                        value={smsCode}
+                        onChange={(e) => setSmsCode(e.target.value)}
+                        className="transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-l-md placeholder:text-slate-400/90 block px-4 py-3 intro-x min-w-full xl:min-w-[350px]"
+                        placeholder="请输入短信验证码"
+                      />
+                      <button 
+                        className='w-2/3 bg-primary text-white rounded-r-md'
+                        onClick={countDownHandler}
+                        disabled={isCounting}
+                      >{isCounting ? `倒计时 ${remainingTime}` : '发送短信'}</button>
+                    </div>
+                  </div>
+                  
+
+                  <div className="mt-8">
+                    <div 
+                      
+                      className='w-full bg-indigo-500 py-2 rounded-lg px-6 text-center text-white font-semibold leading-6 hover:bg-indigo-400 cursor-pointer'
+                      onClick={loginHandler}
+                    >
+                      登录
+                    </div>
+                </div>
+
+                </div>
               </div>
-              <div className="flex gap-x-4">
-                <dt className="flex-none">
-                  <span className="sr-only">Telephone</span>
-                  <PhoneIcon className="h-7 w-6 text-gray-400" aria-hidden="true" />
-                </dt>
-                <dd>
-                  <a className="hover:text-white" href="tel:+1 (555) 234-5678">
-                    +1 (555) 234-5678
-                  </a>
-                </dd>
-              </div>
-              <div className="flex gap-x-4">
-                <dt className="flex-none">
-                  <span className="sr-only">Email</span>
-                  <EnvelopeIcon className="h-7 w-6 text-gray-400" aria-hidden="true" />
-                </dt>
-                <dd>
-                  <a className="hover:text-white" href="mailto:hello@example.com">
-                    hello@example.com
-                  </a>
-                </dd>
-              </div>
-            </dl>
+            </div>
+            {/* END: Login Form */}
           </div>
         </div>
-        <form className="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48">
-          <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
-            <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                
-              {/* 手机号输入框 - start   */}
-              <div>
-                <label className="block text-sm font-semibold leading-6 text-white">
-                  手机号{!validPhone && <span className='ml-4 font-bold text-red-500'>请输入正确的手机号</span>}
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    type="text"
-                    value={phone}
-                    onChange={validatePhoneHandler}
-                    className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                  />
-                </div>
-                </div>
-                <div>
-              </div>
-              {/* 手机号输入框 - end */}
-
-              {/* 邀请码输入框 - start  */}
-              <div>
-                <label className="block text-sm font-semibold leading-6 text-white">
-                  邀请码(选填)
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    type="text"
-                    value={invitedCode}
-                    onChange={(e) => setInvitedCode(e.target.value)}
-                    className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                  />
-                </div>
-                </div>
-                <div>
-              </div>
-              {/* 邀请码输入框 - end */}
-
-
-              {/* 图片验证码输入框 - start      */}
-              <div>
-                <label className="block text-sm font-semibold leading-6 text-white">
-                  图片验证码{!validCaptcha && <span className='ml-4 text-red-500 font-bold'>验证码输入不正确</span>}
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    type="text"
-                    value={inputCaptcha}
-                    onChange={validateCaptchaHandler}
-                    className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="mt-9 mr-0">
-                  <Captcha charNum={4} onChange={changeCaptchaHandler}/>
-                </div>
-              </div>
-              {/* 图片验证码输入框 - end */}
-              
-              {/* 短信验证码输入框 - start */}
-              <div>
-                <label className="block text-sm font-semibold leading-6 text-white">
-                  短信验证码{!validateSmsCode && <span className='ml-4 text-red-500 font-bold'>检查手机号&验证码</span>}
-                  {isSendCode && <span className='ml-4 text-green-500 font-bold'>请查收手机验证码</span>}
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    type="text"
-                    value={smsCode}
-                    onChange={(e) => setSmsCode(e.target.value)}
-                    className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-              <div>
-                
-                <div className="mt-9 mr-0">
-                  <button 
-                    className='bg-white/5 py-2 rounded-lg px-6 block text-sm font-semibold leading-6 text-white'
-                    onClick={countDownHandler}
-                    disabled={isCounting}
-                  >{isCounting ? `倒计时 ${remainingTime}` : '发送短信'}</button>
-                </div>
-              </div>
-              {/* 短信验证码输入框 - end */}
-
-              <div>
-                <div className="mt-2.5">
-                  <div 
-                    className='w-full bg-indigo-500 py-2 rounded-lg px-6 text-center text-white font-semibold leading-6 hover:bg-indigo-400 cursor-pointer'
-                    onClick={loginHandler}
-                  >
-                    前往登录
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </form>
       </div>
-    </div>
+    </>
   )
 }
 

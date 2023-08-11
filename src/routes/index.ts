@@ -8,7 +8,6 @@
 import Login from "@/containers/Login"
 import Home from "@/containers/Home"
 import Content from "@/containers/Content"
-import NewLogin from "@/containers/NewLogin"
 
 export const ROUTE_CONFIG = [
   {
@@ -28,12 +27,6 @@ export const ROUTE_CONFIG = [
     path: "/content",
     element: Content,
     title: "主页"
-  },
-  {
-    key: "newLogin",
-    path: "/newLogin",
-    element: NewLogin,
-    title: "新登录界面"
   }
 ]
 
