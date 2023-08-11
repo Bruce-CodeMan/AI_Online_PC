@@ -5,6 +5,9 @@
  */
 import clsx from "clsx"
 
+// Custom Imports
+import LoginImg from "@/assets/images/login.svg"
+
 const NewLogin = () => {
   return (
     <>
@@ -15,7 +18,20 @@ const NewLogin = () => {
           "after:hidden after:xl:block after:content-[''] after:w-[57%] after:-mt-[20%] after:-mb-[13%] after:-ml-[13%] after:absolute after:inset-y-0 after:left-0 after:transform after:rotate-[-4.5deg] after:bg-primary after:rounded-[100%]",
         ])}
       >
-
+        <div className="container relative z-10 sm:px-10">
+          <div className="block grid-cols-2 gap-4 xl:grid">
+            {/* BEGIN: Login Info */}
+            <div className="flex-col hidden min-h-screen xl:flex">
+              <div className="my-auto">
+                <img 
+                  src={LoginImg}
+                  className="w-1/2 -mt-16"
+                />
+              </div>
+            </div>
+            {/* END: Login Info */}
+          </div>
+        </div>
       </div>
     </>
   )
