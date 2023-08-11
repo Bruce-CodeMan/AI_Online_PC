@@ -50,9 +50,6 @@ const NewMessageInput = ({ curKey }: IProp) => {
 
   const processMessage = async () => {
 
-    console.log("curKey: ", curKey)
-    console.log("content: ", content)
-
     await sendMessage({
       variables: {
         "params": {
