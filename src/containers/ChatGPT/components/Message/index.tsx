@@ -46,7 +46,7 @@ const Message = ({ content, aiMessage }: IPros) => {
             const match = /language-(\w+)/.exec(className || "")
             return !inline && match ? (
               <div className="flex flex-col">
-                <div className="flex items-center justify-between bg-gray-500 -mb-2 p-2">
+                <div className="flex items-center justify-between bg-gray-500 -mb-2 p-2 rounded-t-lg">
                   <span className="text-white">{ match[1] }</span>
                   <CopyToClipboard 
                     text={children as string}
@@ -58,6 +58,7 @@ const Message = ({ content, aiMessage }: IPros) => {
                 <SyntaxHighlighter
                   language={match[1]}
                   style={darcula}
+                  className="rounded-b-lg"
                   PreTag="div"
                   {...props}
                 >
