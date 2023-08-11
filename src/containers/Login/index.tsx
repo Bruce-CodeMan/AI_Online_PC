@@ -8,10 +8,10 @@ import Captcha from "react-captcha-code"
 import { useState, useEffect } from "react"
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+import { motion } from "framer-motion"
 
 // Custom Imports
 import LoginImg from "@/assets/images/login.svg"
-// Custom Imports
 import { LOGIN, SEND_CODE_MSG } from '@/graphql/auth';
 import { AUTH_TOKEN } from '@/utils/constant';
 
@@ -169,7 +169,10 @@ const Login = () => {
             {/* BEGIN: Login Info */}
             <div className="flex-col hidden min-h-screen xl:flex col-span-1">
               <div className="my-auto">
-                <img 
+                <motion.img 
+                  initial={{ x: -200 }}
+                  animate={{ x: 0 }}
+                  transition={{ duration: 0.5 }}
                   src={LoginImg}
                   className="w-1/2 -mt-16 ml-24"
                 />
