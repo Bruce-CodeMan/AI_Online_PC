@@ -3,8 +3,8 @@
  * @Author: Bruce Hsu
  * @Description: 
  */
-import { RxDashboard } from "react-icons/rx";
-import { MdInsights } from "react-icons/md";
+import { SiOpenai } from "react-icons/si";
+import { MdOutlineImagesearchRoller } from "react-icons/md"
 import { RiCouponLine } from "react-icons/ri";
 import { FiUser, FiLogOut } from "react-icons/fi";
 import { AiOutlineMessage } from "react-icons/ai";
@@ -13,12 +13,12 @@ import { BsFolder, BsWallet2 } from "react-icons/bs";
 export const datas = [
   {
     id: "1",
-    icon: <RxDashboard />,
+    icon: <SiOpenai />,
     text: "Dashboard",
   },
   {
     id: "2",
-    icon: <MdInsights />,
+    icon: <MdOutlineImagesearchRoller />,
     text: "Sales Insights",
   },
   {

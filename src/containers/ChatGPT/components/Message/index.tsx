@@ -5,7 +5,7 @@
  */
 import { AiOutlineUser } from "react-icons/ai"
 import { PiCopySimple, PiChecks } from "react-icons/pi"
-import { DiProlog } from "react-icons/di";
+import { SiOpenai } from "react-icons/si";
 import ReactMarkdown from "react-markdown"
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { darcula } from "react-syntax-highlighter/dist/cjs/styles/prism";
@@ -37,7 +37,7 @@ const Message = ({ content, aiMessage }: IPros) => {
       style={{ background: aiMessage === "AI"? 'rgb(247,247,248)': 'white' }}
     >  
       <div className={`${styles.message_avatar_container}`}>
-        {aiMessage === "AI" ? <DiProlog className="h-6 w-6 text-sky-500"/> : <AiOutlineUser className="h-6 w-6"/>}
+        {aiMessage === "AI" ? <SiOpenai className="h-6 w-6 text-green-600"/> : <AiOutlineUser className="h-6 w-6"/>}
       </div>
       <ReactMarkdown 
         className={`${styles.message_text}`}

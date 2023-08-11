@@ -7,10 +7,10 @@ import { BsSend } from "react-icons/bs";
 import { v4 as uuid } from "uuid"
 import { useState, useEffect } from "react";
 import { useRef } from "react";
+import { useMutation, useQuery } from "@apollo/client";
 
 // Custom Imports
 import styles from "./index.module.less"
-import { useMutation, useQuery } from "@apollo/client";
 import { COMMIT_CONTENT_INFO, GET_CONTENT_INFO } from "@/graphql/content";
 import Message from "../Message";
 import { CHATGPT_URL } from "@/utils/constant";
@@ -48,6 +48,7 @@ const NewMessageInput = ({ curKey }: IProp) => {
 
   useEffect(scrollToButton, [detailContent])
 
+  // 输入框发送消息给后端
   const processMessage = async () => {
 
     await sendMessage({
@@ -118,6 +119,7 @@ const NewMessageInput = ({ curKey }: IProp) => {
     })
   }
 
+  // 点击按钮发送消息
   const sendMessageHandler = () => {
     if(content.length > 0) {
       processMessage()
@@ -125,6 +127,7 @@ const NewMessageInput = ({ curKey }: IProp) => {
     }
   }
 
+  // 按住回车进行发送消息
   const keyProcessedHandler = (event: any) => {
     if(event.code === "Enter" && content.length > 0) {
       processMessage()
@@ -135,10 +138,10 @@ const NewMessageInput = ({ curKey }: IProp) => {
   return (
     <>
       {/* 模型的选择 -start */}
-      {/* <div className="relative top-0 h-[70px] w-full rounded-tr-lg border-b-2">
+      <div className="relative top-0 h-14 w-full rounded-tr-lg border-b-2 flex items-center justify-center">
+        <p className="text-[rgb(217,217,227)] font-bold text-xl">ChatGPT</p>  
 
-
-      </div> */}
+      </div>
       {/* 模型的选择 - end */}
 
       {/* 消息的展示列表 - start */}
