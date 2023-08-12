@@ -8,6 +8,7 @@ import { useState } from "react";
 // Custom Imports
 import SideBar from "@/containers/Content/components/SideBar";
 import ChatGPT from "@/containers/ChatGPT";
+import MdJourney from "../MdJourney";
 
 const Content = () => {
 
@@ -24,7 +25,7 @@ const Content = () => {
           
         )}
         {selectedPage === "2" && (
-          <div>xxx</div>
+          <MdJourney />
         )}
       </div>
     </div>

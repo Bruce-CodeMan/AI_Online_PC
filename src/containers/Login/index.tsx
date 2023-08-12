@@ -177,12 +177,11 @@ const Login = () => {
                   src={LoginImg}
                   className="w-1/2 -mt-16 ml-24"
                 />
-                <div className="mt-10 text-4xl font-medium leading-tight text-white -intro-x">
-                  A few more clicks to <br />
-                  sign in to your account.
+                <div className="mt-10 text-4xl ml-24 font-medium leading-tight text-white -intro-x">
+                  清弘森佰 <br />
                 </div>
-                <div className="mt-5 text-lg text-white -intro-x text-opacity-70 dark:text-slate-400">
-                  Manage all your e-commerce accounts in one place
+                <div className="mt-5 text-lg text-white ml-24 -intro-x text-opacity-70 dark:text-slate-400">
+                  商务合作: kaixu9767@gmail.com
                 </div>
               </div>
             </div>

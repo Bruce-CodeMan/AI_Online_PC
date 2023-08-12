@@ -19,9 +19,16 @@ import { CHATGPT_URL } from "@/utils/constant";
 import { useUserContext } from "@/utils/userHooks";
 
 const model = [
-  { name: 'GPT-3', value: "gpt-3.5-turbo" },
-  { name: 'GPT-4', value: "gpt-4.0" },
-  { name: 'Claude2', value: "calude2" }
+  { name: 'GPT-3.5-turbo', value: "gpt-3.5-turbo" },
+  { name: 'GPT-3.5-turbo-0613', value: "gpt-3.5-turbo-0613" },
+  { name: 'GPT-3.5-turbo-16k', value: "gpt-3.5-turbo-16k" },
+  { name: 'GPT-3.5-turbo-16k-0613', value: "gpt-3.5-turbo-16k-0613" },
+  { name: 'GPT-4', value: "gpt-4" },
+  { name: 'GPT-4-0314', value: "gpt-4-0314" },
+  { name: 'GPT-4-0613', value: "gpt-4-0613" },
+  { name: 'GPT-4-32k', value: "gpt-4-32k" },
+  { name: 'GPT-4-32k-0314', value: "gpt-4-0314" },
+  { name: 'GPT-4-32k-0613', value: "gpt-4-0613" },
 ]
 
 interface IProp {
@@ -87,7 +94,8 @@ const NewMessageInput = ({ curKey }: IProp) => {
       },
       body: JSON.stringify({
         message: content,
-        model: selectedModel.value
+        model: selectedModel.value,
+        userId: store.id
       })
     }).then(response => {
       setDetailContent(prevDetailContent => [...prevDetailContent, {id: uuid(), sender: 'AI', message: ""}])
@@ -118,12 +126,15 @@ const NewMessageInput = ({ curKey }: IProp) => {
           }
           return Promise.resolve()
         }
-        const message = decoder.decode(value)
-        fullMessage += message
+        const obj = {
+          message: ''
+        };
+        obj.message = decoder.decode(value)
+        fullMessage += obj.message
         setDetailContent(prevDetailContent => {
           const lastElement = prevDetailContent[prevDetailContent.length - 1]
           if(lastElement){
-            lastElement.message += message
+            lastElement.message += obj.message
           }
           return [...prevDetailContent]
         })
