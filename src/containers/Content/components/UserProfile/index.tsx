@@ -3,11 +3,12 @@
  * @Author: Bruce Hsu
  * @Description: 
  */
+import { useEffect, useState } from "react"
 
 // Custom Imports
 import UserPic from "@/assets/user.png"
 import { useUserContext } from "@/utils/userHooks"
-import { useEffect, useState } from "react"
+
 
 interface IProp {
   toggle: boolean

@@ -16,11 +16,12 @@ import styles from "./index.module.less"
 import { COMMIT_CONTENT_INFO, GET_CONTENT_INFO } from "@/graphql/content";
 import Message from "../Message";
 import { CHATGPT_URL } from "@/utils/constant";
+import { useUserContext } from "@/utils/userHooks";
 
-const people = [
-  { name: 'GPT-3' },
-  { name: 'GPT-4' },
-  { name: 'Claude2' }
+const model = [
+  { name: 'GPT-3', value: "gpt-3.5-turbo" },
+  { name: 'GPT-4', value: "gpt-4.0" },
+  { name: 'Claude2', value: "calude2" }
 ]
 
 interface IProp {
@@ -33,8 +34,11 @@ const NewMessageInput = ({ curKey }: IProp) => {
   const [detailContent, setDetailContent] = useState<{ id: string; sender: string; message: string }[]>([]);
   const [isSendMsg, setIsSendMsg] = useState(false)
 
-  const [selected, setSelected] = useState(people[0])
+  const { store } = useUserContext();
+
+  const [selectedModel, setSelectedModel] = useState(model[0])
   const [ sendMessage ] = useMutation(COMMIT_CONTENT_INFO)
+
 
   const {data, refetch} = useQuery(GET_CONTENT_INFO, {
     variables: {
@@ -82,7 +86,8 @@ const NewMessageInput = ({ curKey }: IProp) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: content
+        message: content,
+        model: selectedModel.value
       })
     }).then(response => {
       setDetailContent(prevDetailContent => [...prevDetailContent, {id: uuid(), sender: 'AI', message: ""}])
@@ -149,10 +154,10 @@ const NewMessageInput = ({ curKey }: IProp) => {
       {/* 模型的选择 -start */}
       <div className="relative top-0 h-14 w-full min-h-[60px] rounded-tr-lg border-b-2 flex items-center justify-center">
       <div className="w-72">
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selectedModel} onChange={setSelectedModel}>
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-            <span className="block truncate">{selected.name}</span>
+            <span className="block truncate">{selectedModel.name}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronUpDownIcon
                 className="h-5 w-5 text-gray-400"
@@ -167,7 +172,7 @@ const NewMessageInput = ({ curKey }: IProp) => {
             leaveTo="opacity-0"
           >
             <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {people.map((person, personIdx) => (
+              {model.map((m, personIdx) => (
                 <Listbox.Option
                   key={personIdx}
                   className={({ active }) =>
@@ -175,7 +180,7 @@ const NewMessageInput = ({ curKey }: IProp) => {
                       active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
                     }`
                   }
-                  value={person}
+                  value={m}
                 >
                   {({ selected }) => (
                     <>
@@ -184,7 +189,7 @@ const NewMessageInput = ({ curKey }: IProp) => {
                           selected ? 'font-medium' : 'font-normal'
                         }`}
                       >
-                        {person.name}
+                        {m.name}
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">

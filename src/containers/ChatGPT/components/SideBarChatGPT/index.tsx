@@ -3,12 +3,17 @@
  * @Author: Bruce Hsu
  * @Description: 
  */
-import { ADD_NEW_DIALOG } from "@/graphql/content";
-import { GET_MENU } from "@/graphql/user";
-import { useMutation, useQuery } from "@apollo/client";
 
+import { useMutation, useQuery } from "@apollo/client";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+
+// Custom Imports
+
+import { ADD_NEW_DIALOG } from "@/graphql/content";
+import { GET_MENU } from "@/graphql/user";
+import { useUserContext } from "@/utils/userHooks";
+import { useNavigate } from "react-router-dom";
 
 interface IProp {
   curKey: string;
@@ -18,8 +23,11 @@ interface IProp {
 
 const SideBarChatGPT = ({ curKey, setCurKey }: IProp) => {
   
+  const nav = useNavigate()
   const [ menu, setMenu ] = useState([]);
   const [ addNewDialog ] = useMutation(ADD_NEW_DIALOG)
+
+  const { store } = useUserContext();
 
   // 获取菜单栏的信息
   const {refetch} = useQuery(GET_MENU, {
@@ -30,9 +38,14 @@ const SideBarChatGPT = ({ curKey, setCurKey }: IProp) => {
 
   // 添加一个新的对话框
   const addNewDialogHandler = async () => {
-    const { data } = await addNewDialog()
-    await refetch()
-    setCurKey(data.addNewDialog.data)
+    if(store.id){
+      const { data } = await addNewDialog()
+      await refetch()
+      setCurKey(data.addNewDialog.data)
+    }else{
+      nav("/login")
+    }
+    
   }
 
   return (
