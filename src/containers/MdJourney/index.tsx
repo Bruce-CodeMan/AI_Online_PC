@@ -1,3 +1,5 @@
+import axios from "axios"
+
 // Custom Imports
 import Loading from "./components/Loading";
 import FormField from "./components/FormField";
@@ -5,27 +7,34 @@ import { useUserContext } from "@/utils/userHooks";
 import preview from "@/assets/images/preview.png"
 import { useState } from "react";
 import { getRandomPrompt } from "@/utils/getRandomPrompt";
+import { AI_DRWA_URL } from "@/utils/constant";
 
 const MdJourney = () => {
 
   const { store } = useUserContext();
 
   const [generatingImg, setGeneratingImg] = useState(false)
-  const [imgDetail, setImgDetail] = useState({
-    prompt: "",
-    photo: ""
-  })
+  const [imgUrl, setImgUrl] = useState("")
+  const [prompt, setPrompt] = useState("")
+
 
   const handleSurpriseMe = () => {
-    const randomPrompt = getRandomPrompt(imgDetail.prompt)
-    setImgDetail({
-      ...imgDetail,
-      prompt: randomPrompt
-    })
+    const randomPrompt = getRandomPrompt(prompt)
+    setPrompt(randomPrompt)
   }
 
-  const generateImgHandler = () => {
-
+  const generateImgHandler = async () => {
+    if(prompt){
+      setGeneratingImg(true)
+      const res = await axios.post(
+        AI_DRWA_URL,{
+          prompt,
+          userId: store.id
+        }
+      )
+      setGeneratingImg(false)
+      setImgUrl(res.data.message)
+    }
   }
 
   return (
@@ -36,15 +45,28 @@ const MdJourney = () => {
       <div className="mt-16 flex flex-col gap-5 w-full">
         <FormField 
           labelName="Prompt" 
-          placehodler="An Impressionist oil painting of sunflowers in a purple vase…" 
+          placehodler="请输入要生成的图片内容" 
+          handleSurpriseMe={handleSurpriseMe}
+          value={prompt}
         />
 
         <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-3 h-64 flex justify-center items-center">
-          <img 
-            src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-5h00XcSWp6pVNsvcfOsRSpVu/user-ObGaOcqy5io9qzoKI714I4CR/img-Mp9zDpnmJZKZNQ3MHCy2Qdki.png?st=2023-08-13T05%3A15%3A46Z&se=2023-08-13T07%3A15%3A46Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-08-12T17%3A23%3A29Z&ske=2023-08-13T17%3A23%3A29Z&sks=b&skv=2021-08-06&sig=jkbJin3r1zbMeYczlKk1HlHKdIoi%2BgvH6T5yByIrRjQ%3D"
-            // className="w-9/12 h-9/12 object-contain opacity-40"
-            className="w-full h-full object-contain"
-          />
+          {
+            imgUrl==""?(
+              <img 
+              src={preview}
+              className="w-9/12 h-9/12 object-contain opacity-40"
+              // className="w-full h-full object-contain"
+            />
+            ): (
+              <img 
+              src={imgUrl}
+              // className="w-9/12 h-9/12 object-contain opacity-40"
+              className="w-full h-full object-contain"
+            />
+            )
+
+          }
           {
             generatingImg && (
               <div className="absolute inset-0 z-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)] rounded-lg">
@@ -60,7 +82,7 @@ const MdJourney = () => {
             className=" text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
             onClick={generateImgHandler}
           >
-            {generatingImg ? 'Generating...' : 'Generate'}
+            {generatingImg ? '图像生成中...' : '图像生成'}
           </button>
         </div>
         

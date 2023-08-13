@@ -154,6 +154,7 @@ const NewMessageInput = ({ curKey }: IProp) => {
 
   // 按住回车进行发送消息
   const keyProcessedHandler = (event: any) => {
+
     if(event.code === "Enter" && content.length > 0) {
       processMessage()
       setContent("")
