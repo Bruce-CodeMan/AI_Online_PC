@@ -14,7 +14,6 @@ import { useUserContext } from "@/utils/userHooks";
 const Profile = () => {
 
   const { store } = useUserContext();
-  console.log(store)
 
   return (
     <div 
