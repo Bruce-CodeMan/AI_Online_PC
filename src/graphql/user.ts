@@ -14,6 +14,8 @@ export const GET_USER = gql`
       avatar
       gpt3Value
       gpt4Value
+      tel
+      inviteCode
     }
   }
 `

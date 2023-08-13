@@ -8,7 +8,9 @@ import { useState } from "react";
 // Custom Imports
 import SideBar from "@/containers/Content/components/SideBar";
 import ChatGPT from "@/containers/ChatGPT";
-import MdJourney from "../MdJourney";
+import MdJourney from "@/containers/MdJourney";
+import Profile from "@/containers/Profile";
+import Gym from "@/containers/Gym";
 
 const Content = () => {
 
@@ -26,6 +28,12 @@ const Content = () => {
         )}
         {selectedPage === "2" && (
           <MdJourney />
+        )}
+        {selectedPage === "3" && (
+          <Profile />
+        )}
+        {selectedPage === "4" && (
+          <Gym />
         )}
       </div>
     </div>

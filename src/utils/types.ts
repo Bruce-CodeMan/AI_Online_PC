@@ -14,4 +14,6 @@ export interface IUser {
     avatar: string;
     gpt3Value: number;
     gpt4Value: number;
+    tel: string;
+    inviteCode: string;
 }

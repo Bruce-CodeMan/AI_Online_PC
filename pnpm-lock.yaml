@@ -40,6 +40,9 @@ dependencies:
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
+  lucide:
+    specifier: 0.88.0
+    version: 0.88.0
   postcss-nested:
     specifier: ^6.0.1
     version: 6.0.1(postcss@8.4.27)
@@ -2453,6 +2456,10 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /lucide@0.88.0:
+    resolution: {integrity: sha512-53QdJY0qcNp9RF7bRlDigviMyRHhfFsxg2QykTxbsObdffhNQOqUl2nw5sLx393xkWdnxqnqj7NgPH14KIBnGg==}
+    dev: false
 
   /make-dir@2.1.0:
     resolution: {integrity: sha512-LS9X+dc8KLxXCb8dni79fLIIUA5VyZoyjSMCwTluaXA0o27cCK0bhXkpgw+sTXVpPy/lSO57ilRixqk0vDmtRA==}

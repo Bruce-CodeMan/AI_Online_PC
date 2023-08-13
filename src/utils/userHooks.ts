@@ -22,14 +22,16 @@ export const useGetUser = () => {
   const { setStore } = useUserContext()
   useQuery<{ getUserInfo: IUser }>(GET_USER, {
     onCompleted: (data) => {
-      const { id, name, avatar, gpt3Value, gpt4Value } = data.getUserInfo
+      const { id, name, avatar, gpt3Value, gpt4Value, tel, inviteCode } = data.getUserInfo
       if(data.getUserInfo){
         setStore({
           id,
           name,
           avatar,
           gpt3Value,
-          gpt4Value
+          gpt4Value,
+          tel,
+          inviteCode
         })
       }
     }
