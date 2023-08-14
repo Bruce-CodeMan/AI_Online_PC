@@ -1,11 +1,17 @@
+/*
+ * @Date: 2023-08-14 09:21:10
+ * @Author: Bruce Hsu
+ * @Description: 
+ */
 interface IProp {
   labelName: string;
   placehodler: string;
   value: string;
   handleSurpriseMe: () => void;
+  inputKeyHandler: (value: any) => void;
 }
 
-const FormField = ({ labelName, placehodler, value, handleSurpriseMe }: IProp) => {
+const FormField = ({ labelName, placehodler, value, handleSurpriseMe, inputKeyHandler }: IProp) => {
   return (
     <>
       <div className="flex items-center gap-2 mb-2">
@@ -25,6 +31,7 @@ const FormField = ({ labelName, placehodler, value, handleSurpriseMe }: IProp) =
         className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-[#6469ff] focus:border-[#6469ff] outline-none block w-2/3 p-3"
         placeholder={placehodler}
         value={value}
+        onChange={inputKeyHandler}
         required
       />
     </>    

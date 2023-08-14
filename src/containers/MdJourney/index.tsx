@@ -37,6 +37,10 @@ const MdJourney = () => {
     }
   }
 
+  const inputKeyHandler = (e: any) => {
+    setPrompt(e.target.value)
+  }
+
   return (
     <div className="bg-white w-full h-full rounded-lg p-4 flex flex-col">
       <h2 className="font-extrabold text-[#222328] text-[32px]">AI画家心中的世界</h2>
@@ -47,6 +51,7 @@ const MdJourney = () => {
           labelName="Prompt" 
           placehodler="请输入要生成的图片内容" 
           handleSurpriseMe={handleSurpriseMe}
+          inputKeyHandler={inputKeyHandler}
           value={prompt}
         />
 

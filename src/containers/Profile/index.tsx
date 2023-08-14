@@ -10,6 +10,7 @@ import { PhoneIcon } from "@heroicons/react/24/outline";
 
 import UserPic from "@/assets/user.png"
 import { useUserContext } from "@/utils/userHooks";
+import WeChatImg from "@/assets/images/Wechat.jpeg"
 
 const Profile = () => {
 
@@ -78,6 +79,18 @@ const Profile = () => {
           </div>
         </div>
         {/* END: Profile Info */}
+
+        <div className="mt-12 flex w-full">
+          <div className="w-2/3 flex-col p-16">
+            <p className="text-gray-400 mt-8">使用GPT-3: 每次消耗1个gpt3Value</p>
+            <p className="text-gray-400 mt-8">使用GPT-4: 每次消耗1个gpt4Value</p>
+            <p className="text-gray-400 mt-8">使用AI绘画: 每次消耗7个gpt3Value</p>
+            <p className="text-gray-400 mt-8">新用户注册: 填写邀请码, gpt3Value + 20</p>
+          </div>
+          <div className="w-1/3">
+            <img src={WeChatImg} alt="" className=" mt-16 ml-8 h-64 w-64" />
+          </div>
+        </div>
     </div>
   )
 }

@@ -66,9 +66,11 @@ const Home = () => {
           />
         </div>
         {/* RIGHT */}
-        <div className="flex flex-col md:ml-80">
-          <p className="text-5xl">独立开发者: Bruce Hsu</p>
-          <p className="text-xl text-gray-400">xxxxxxxxxx</p>
+        <div className="flex flex-col gap-4 md:ml-80">
+          <p className="text-5xl font-bold">天选打工人</p>
+          <p className="text-3xl">用AI提高你的工作效率</p>
+          <p className="text-xl text-gray-400 mt-32">开发者: Bruce Hsu</p>
+          <p className="text-xl text-gray-400">商务合作: kaixu9767@gmail.com</p>
         </div>
       </div>
       {/* CAROUSEL, ads */}
