@@ -12,7 +12,6 @@ import { useState } from "react";
 
 import { ADD_NEW_DIALOG } from "@/graphql/content";
 import { GET_MENU } from "@/graphql/user";
-import { useUserContext } from "@/utils/userHooks";
 import { useNavigate } from "react-router-dom";
 
 interface IProp {
@@ -27,18 +26,20 @@ const SideBarChatGPT = ({ curKey, setCurKey }: IProp) => {
   const [ menu, setMenu ] = useState([]);
   const [ addNewDialog ] = useMutation(ADD_NEW_DIALOG)
 
-  const { store } = useUserContext();
+  const [userId, setUserId] = useState("")
 
   // 获取菜单栏的信息
   const {refetch} = useQuery(GET_MENU, {
     onCompleted: (data) => {
       setMenu(data.getAllMenus.data.menu || [])
+      setUserId(data.getAllMenus.data.id)
     }
   })
 
+
   // 添加一个新的对话框
   const addNewDialogHandler = async () => {
-    if(store.id){
+    if(userId){
       const { data } = await addNewDialog()
       await refetch()
       setCurKey(data.addNewDialog.data)
@@ -59,7 +60,7 @@ const SideBarChatGPT = ({ curKey, setCurKey }: IProp) => {
         <span className="text-white flex items-center">New Chat</span>
       </div>
       {/* ListItem */}
-      <div className="w-[90%] flex flex-col mx-auto mt-2 cursor-pointer pr-2 truncate ...">
+      <div className="w-[90%] mx-auto mt-2 cursor-pointer pr-2 overflow-y-auto min-h-[500px]">
         {/* 遍历整个菜单栏 */}
         { 
           menu.slice(0).reverse().map((item: any) => (

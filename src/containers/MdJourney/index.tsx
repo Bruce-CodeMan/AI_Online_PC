@@ -1,40 +1,52 @@
 import axios from "axios"
-
+import { useQuery } from "@apollo/client";
 // Custom Imports
 import Loading from "./components/Loading";
 import FormField from "./components/FormField";
-import { useUserContext } from "@/utils/userHooks";
 import preview from "@/assets/images/preview.png"
 import { useState } from "react";
 import { getRandomPrompt } from "@/utils/getRandomPrompt";
 import { AI_DRWA_URL } from "@/utils/constant";
+import { useNavigate } from "react-router-dom";
+import { GET_MENU } from "@/graphql/user";
 
 const MdJourney = () => {
 
-  const { store } = useUserContext();
-
+  const nav = useNavigate()
   const [generatingImg, setGeneratingImg] = useState(false)
   const [imgUrl, setImgUrl] = useState("")
   const [prompt, setPrompt] = useState("")
-
+  const [userId, setUserId] = useState("")
 
   const handleSurpriseMe = () => {
     const randomPrompt = getRandomPrompt(prompt)
     setPrompt(randomPrompt)
   }
 
-  const generateImgHandler = async () => {
-    if(prompt){
-      setGeneratingImg(true)
-      const res = await axios.post(
-        AI_DRWA_URL,{
-          prompt,
-          userId: store.id
-        }
-      )
-      setGeneratingImg(false)
-      setImgUrl(res.data.message)
+  // 获取菜单栏的信息
+  useQuery(GET_MENU, {
+    onCompleted: (data) => {
+      setUserId(data.getAllMenus.data.id)
     }
+  })
+
+  const generateImgHandler = async () => {
+    if(userId){
+      if(prompt){
+        setGeneratingImg(true)
+        const res = await axios.post(
+          AI_DRWA_URL,{
+            prompt,
+            userId: userId
+          }
+        )
+        setGeneratingImg(false)
+        setImgUrl(res.data.message)
+      }
+    }else{
+      nav("/login")
+    }
+    
   }
 
   const inputKeyHandler = (e: any) => {

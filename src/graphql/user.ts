@@ -25,6 +25,7 @@ export const GET_MENU = gql`
   query getMenu{
     getAllMenus{
       data{
+        id
         menu{
           key
           title
