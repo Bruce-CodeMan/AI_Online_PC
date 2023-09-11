@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client"
 // Custom Imports
 import Loading from "./components/Loading";
 import FormField from "./components/FormField";

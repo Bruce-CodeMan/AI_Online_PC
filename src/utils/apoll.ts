@@ -1,13 +1,18 @@
+/*
+ * @Date: 2023-08-04 09:08:13
+ * @Author: Bruce Hsu
+ * @Description: 
+ */
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
 
 // Custom Imports
-import { AUTH_TOKEN, HTTP_LINK } from "@/utils/constant";
+import { AUTH_TOKEN } from "@/utils/constant";
 
-
+const uri = "/graphql"
 
 const httpLink = createHttpLink({
-  uri: HTTP_LINK
+  uri
 })
 
 const authLink = setContext((_, { headers }) => {
